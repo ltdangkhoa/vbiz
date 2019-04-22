@@ -1,6 +1,7 @@
 """
 vbiz.py
 """
+
 INPUT_PATH = '.'
 TEMP_FILE = 'temp.txt'
 
@@ -9,6 +10,13 @@ def let_rock():
     """let_rock"""
     import os
     import subprocess
+    import json
+    import pkg_resources
+
+    ciddict_file = 'ciddict.json'
+    ciddict_filepath = pkg_resources.resource_filename(__name__, ciddict_file)
+    with open(ciddict_filepath) as json_file:
+        ciddict = json.load(json_file)
 
     result_file_name = os.path.basename(os.getcwd()) + '.csv'
     result_file = open("../" + result_file_name, "w")
@@ -25,7 +33,7 @@ def let_rock():
             _f = open('../' + TEMP_FILE, 'r')
             inputs = _f.readlines()
 
-            result = solution(inputs)
+            result = solution(inputs, ciddict)
             len_result = len(result)
             if len_result > 0:
                 str_line = ','.join(map(str, result))
@@ -34,9 +42,9 @@ def let_rock():
     result_file.close()
 
 
-def solution(arr):
+def solution(arr, ciddict):
     """solution"""
-    bad_name = 'cid:'
+    # bad_name = 'cid:'
     phone_key = ('(cid:264)(cid:76)(cid:1227)(cid:81)(cid:3)(cid:87)(cid:75)'
                  '(cid:82)(cid:1189)(cid:76)(cid:29) ')
     email_key = '@'
@@ -46,7 +54,9 @@ def solution(arr):
     biz_email = ''
     for i, line in enumerate(arr):
         line = line.replace('\n', '')
-        if i == 0 and bad_name not in line:
+        if i == 0:
+            for key in ciddict.keys():
+                line = line.replace(key, ciddict[key])
             biz_name = line
 
         if phone_key in line:
@@ -55,7 +65,7 @@ def solution(arr):
         if email_key in line:
             biz_email = line
 
-    if biz_name != '' or biz_phone != '' or biz_email != '':
+    if biz_phone != '' or biz_email != '':
         results.extend([biz_name, biz_phone, biz_email])
 
     return results
