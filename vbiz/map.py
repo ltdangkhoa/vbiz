@@ -1,6 +1,7 @@
 import re
 import json
 
+
 def haha(vtext, cidtext):
 
     ciddict_file = 'ciddict.json'
@@ -25,8 +26,6 @@ def haha(vtext, cidtext):
 
 
 if __name__ == '__main__':
-    vtext = ('ỄỮỲ')
-    cidtext = (
-          '(cid:1224)(cid:1266)(cid:483)'
-          )
+    vtext = ('_')
+    cidtext = ('(cid:17)')
     haha(vtext, cidtext)

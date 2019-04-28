@@ -11,3 +11,22 @@ Run command
 ```
 vbiz
 ```
+
+### Publish package
+
+```
+python setup.py sdist bdist_wheel
+twine upload dist/*
+```
+
+### Install package
+
+Locally
+```
+pip install .
+```
+
+PiPy
+```
+pip install vbiz
+```
