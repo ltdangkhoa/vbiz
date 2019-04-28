@@ -1,0 +1,31 @@
+{
+  "name": "vBizGetFile Extension",
+  "version": "0.3",
+  "manifest_version": 2,
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "jquery.js",
+        "content.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "browser_action": {
+
+  },
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ]
+}
