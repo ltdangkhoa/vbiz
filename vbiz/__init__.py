@@ -2,17 +2,19 @@
 vbiz.py
 """
 
+import os
+import subprocess
+import json
+import sys
+import pkg_resources
+import requests
+
 INPUT_PATH = '.'
 TEMP_FILE = 'temp.txt'
 
 
 def let_rock():
     """let_rock"""
-    import os
-    import subprocess
-    import json
-    import pkg_resources
-    import sys
 
     ciddict_file = 'ciddict.json'
     ciddict_filepath = pkg_resources.resource_filename(__name__, ciddict_file)
@@ -44,7 +46,7 @@ def let_rock():
             if len_result > 0:
                 str_line = result_file_delimeter.join(map(str, result))
                 result_file.write(str_line + '\n')
-
+                # print(str_line)
                 if len(sys.argv) > 1:
                     post_url = sys.argv[1]
                     post_data = {
@@ -59,11 +61,17 @@ def let_rock():
                     }
                     post_vbiz(post_url, post_data)
 
+    if len(sys.argv) > 1:
+        ping_url = ('http://www.google.com/ping?sitemap='
+                    'https://vbiz.vnappmob.com/sitemap.xml')
+        response = requests.get(ping_url)
+        print(response.status_code)
+
     result_file.close()
 
 
 def post_vbiz(post_url, post_data):
-    import requests
+    """post_vbiz"""
     requests.post(post_url, json=post_data)
 
 
@@ -97,8 +105,8 @@ def solution(arr, ciddict):
     next_name = False
     primary_zone = True
     for i, line in enumerate(arr):
+        del i
         line = line.replace('\n', '')
-
         if primary_key in line:
             primary_zone = False
 
@@ -124,6 +132,7 @@ def solution(arr, ciddict):
             next_address = False
             biz_phone = line.replace(phone_key, '')
             biz_phone = biz_phone.replace(';', '-')
+            biz_phone = biz_phone.replace('.', '')
 
         if next_address:
             biz_address += parse_cid_2_text(ciddict, line.replace('\n', ''))

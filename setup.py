@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='vbiz',
-    version='0.0.19',
+    version='0.0.21',
     author='Kris Luu',
     author_email='luuthaidangkhoa@gmail.com',
     description='The vbiz fetcher',
