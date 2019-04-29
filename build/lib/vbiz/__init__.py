@@ -61,7 +61,7 @@ def let_rock():
                     }
                     post_vbiz(post_url, post_data)
 
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2 and sys.argv[2] == 'ping':
         ping_url = ('http://www.google.com/ping?sitemap='
                     'https://vbiz.vnappmob.com/sitemap.xml')
         response = requests.get(ping_url)
@@ -134,6 +134,7 @@ def solution(arr, ciddict):
             biz_phone = line.replace(phone_key, '')
             biz_phone = biz_phone.replace(';', '-')
             biz_phone = biz_phone.replace('.', '')
+            biz_phone = biz_phone.replace(' ', '')
 
         if next_address:
             biz_address += parse_cid_2_text(ciddict, line.replace('\n', ''))
