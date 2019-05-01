@@ -5,21 +5,40 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       list.push($(this).attr('id'))
     }
   });
-  test(list);
+  godownload(list);
   sendResponse({
     result: "success"
   });
 });
 
-function test(list) {
-  // alert(list)
-  // alert('hi')
+function godownload(list) {
   setTimeout(function() {
     if (list.length > 0) {
       var el = list.pop()
       $('#' + el).click();
-      test(list);
+      godownload(list);
+    } else {
+      goNextPage()
     }
 
   }, 1000);
+}
+
+function goNextPage() {
+  var pager = $("body").find('.Pager');
+  var pager_table = pager.find('table');
+  var pager_table_td = pager_table.find('td');
+
+  var is_current = false;
+  pager_table_td.each(function() {
+    if (is_current) {
+      var next_page = $(this).find('a').attr('href');
+      window.location = next_page;
+      return false;
+    }
+    var span = $(this).find('span');
+    if (span.length > 0) {
+      is_current = true;
+    }
+  });
 }
