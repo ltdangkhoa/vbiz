@@ -1,6 +1,6 @@
 {
   "name": "vBizGetFile Extension",
-  "version": "0.4",
+  "version": "0.5",
   "manifest_version": 2,
   "background": {
     "persistent": false,
@@ -26,6 +26,7 @@
   },
   "permissions": [
     "tabs",
+    "activeTab",
     "<all_urls>"
   ]
 }
