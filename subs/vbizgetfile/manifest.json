@@ -27,6 +27,7 @@
   "permissions": [
     "tabs",
     "activeTab",
+    "downloads",
     "<all_urls>"
   ]
 }
