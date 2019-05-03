@@ -73,7 +73,7 @@ def let_rock():
 def post_vbiz(post_url, post_data):
     """post_vbiz"""
     response = requests.post(post_url, json=post_data)
-    # print(response.text)
+    print(response.status_code)
 
 
 def solution(arr, ciddict):
