@@ -9,7 +9,7 @@ def haha(vtext, cidtext):
     with open(ciddict_file) as json_file:
         ciddict = json.load(json_file)
 
-    print(ciddict)
+    # print(ciddict)
 
     print('-------')
     cidtext = cidtext.replace('(cid:', '')
@@ -26,6 +26,6 @@ def haha(vtext, cidtext):
 
 
 if __name__ == '__main__':
-    vtext = ('ẻ')
-    cidtext = ('(cid:1215)')
+    vtext = ('Ở')
+    cidtext = ('(cid:1250)')
     haha(vtext, cidtext)
