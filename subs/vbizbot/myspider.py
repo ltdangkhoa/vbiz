@@ -11,10 +11,11 @@ class MySpider(scrapy.Spider):
     DOWNLOADER_MIDDLEWARES = {
         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 1
     }
-    download_delay = 0.5
+    DOWNLOAD_DELAY = 1
     proxy_pool = [
-        '36.67.199.89:30625', '52.68.127.244:80',
-        '140.227.73.118:3128'
+        '85.214.52.152:3128', '47.244.5.203:8080', '171.5.29.77:8080',
+        '159.65.130.145:8080',
+        '96.87.184.101:43705'
     ]
     # post_url = 'http://localhost:5000/api/vbiz'
 
@@ -23,7 +24,8 @@ class MySpider(scrapy.Spider):
     def start_requests(self):
         print('------->start_requests--->')
         urls = [
-            'https://masothue.vn/tra-cuu-ma-so-thue-theo-loai-hinh-doanh-nghiep/cong-ty-trach-nhiem-huu-han-1-thanh-vien-ngoai-nn-1',
+            'https://masothue.vn/tra-cuu-ma-so-thue-theo-loai-hinh-doanh-nghiep/cong-ty-trach-nhiem-huu-han-2-thanh-vien-tro-len-ngoai-nn-4',
+            # 'https://masothue.vn/tra-cuu-ma-so-thue-theo-loai-hinh-doanh-nghiep/cong-ty-trach-nhiem-huu-han-1-thanh-vien-ngoai-nn-1?page=80',
         ]
         for url in urls:
             request = scrapy.Request(
