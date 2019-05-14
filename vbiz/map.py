@@ -26,6 +26,6 @@ def haha(vtext, cidtext):
 
 
 if __name__ == '__main__':
-    vtext = ('Ở')
-    cidtext = ('(cid:1250)')
+    vtext = ('ỵ')
+    cidtext = ('(cid:1271)')
     haha(vtext, cidtext)
