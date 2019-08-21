@@ -4,8 +4,6 @@ This package uses [pdfminer.six](https://pypi.org/project/pdfminer.six/) package
 
 pip install pdfminer.six
 
-pip install scrapy
-
 ### Usage
 
 Change dir to folder which contains .pdf files downloaded from https://bocaodientu.dkkd.gov.vn/
@@ -13,7 +11,7 @@ Change dir to folder which contains .pdf files downloaded from https://bocaodien
 Run command
 
 ```
-vbiz
+vbiz_fetcher
 ```
 
 ### Publish package
@@ -32,5 +30,5 @@ pip install .
 
 PiPy
 ```
-pip install vbiz
+pip install vbiz_fetcher
 ```

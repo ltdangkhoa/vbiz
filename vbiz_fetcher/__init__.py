@@ -1,5 +1,5 @@
 """
-vbiz.py
+vbiz_fetcher.py
 """
 
 import os
@@ -63,7 +63,7 @@ def let_rock():
 
     if len(sys.argv) > 2 and sys.argv[2] == 'ping':
         ping_url = ('http://www.google.com/ping?sitemap='
-                    'https://vbiz.vnappmob.com/sitemap.xml')
+                    'https://vbiz.vnappmob.com/sitemaps')
         response = requests.get(ping_url)
         print(response.status_code)
 

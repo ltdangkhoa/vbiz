@@ -1,7 +1,7 @@
 """command_line.py"""
-import vbiz
+import vbiz_fetcher
 
 
 def main():
     """main"""
-    vbiz.let_rock()
+    vbiz_fetcher.let_rock()
