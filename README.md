@@ -1,8 +1,15 @@
 ### Dependencies
 
-This package uses [pdfminer.six](https://pypi.org/project/pdfminer.six/) package for parsing pdf file
 
-pip install pdfminer.six
+~~This package uses [pdfminer.six](https://pypi.org/project/pdfminer.six/) package for parsing pdf file~~
+
+~~```pip install pdfminer.six```~~
+
+#### From 0.2.1
+
+This package uses [pdfminer](https://pypi.org/project/pdfminer/) package for parsing pdf file
+
+```pip install pdfminer```
 
 ### Usage
 
@@ -11,7 +18,9 @@ Change dir to folder which contains .pdf files downloaded from https://bocaodien
 Run command
 
 ```
-vbiz_fetcher
+vbiz_parser
+vbiz_parser -i /path/to/file.pdf -o file.csv
+vbiz_parser -i /path/to/file.pdf -u https://linktoupload.com
 ```
 
 ### Publish package
@@ -30,5 +39,5 @@ pip install .
 
 PiPy
 ```
-pip install vbiz_fetcher
+pip install vbiz_parser
 ```

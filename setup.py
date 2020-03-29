@@ -5,17 +5,17 @@ with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
 
 setuptools.setup(
-    name='vbiz_fetcher',
-    version='0.0.28',
+    name='vbiz_parser',
+    version='0.2.2',
     author='Kris Luu',
     author_email='luuthaidangkhoa@gmail.com',
-    description='The vBiz fetcher',
+    description='The vBiz parser',
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
-    url='https://github.com/ltdangkhoa/vbiz_fetcher',
+    url='https://github.com/ltdangkhoa/vbiz_parser',
     packages=setuptools.find_packages(),
     install_requires=[
-        'pdfminer.six',
+        'pdfminer',
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -23,7 +23,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     entry_points={
-        'console_scripts': ['vbiz_fetcher=vbiz_fetcher.command_line:main'],
+        'console_scripts': ['vbiz_parser=vbiz_parser.command_line:main'],
     },
     include_package_data=True,
     zip_safe=False)

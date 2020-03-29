@@ -1,28 +1,57 @@
 """
-vbiz.py
+vbiz_parser.py
 """
 
 import os
 import subprocess
 import json
 import sys
+import getopt
 import pkg_resources
 import requests
 
-INPUT_PATH = '.'
-TEMP_FILE = 'temp.txt'
+TEMP_FILE = '/tmp/vbiz_parser_tmp.txt'
 
 
-def let_rock():
-    """let_rock"""
+def let_parse(input_file, output_file, upload_path):
+    """let_parse"""
 
     ciddict_file = 'ciddict.json'
     ciddict_filepath = pkg_resources.resource_filename(__name__, ciddict_file)
     with open(ciddict_filepath) as json_file:
         ciddict = json.load(json_file)
 
-    result_file_name = os.path.basename(os.getcwd()) + '.csv'
-    result_file = open("../" + result_file_name, "w")
+    if input_file:
+        parse_a_file(input_file, ciddict, output_file, upload_path)
+    else:
+        for input_file in os.listdir('.'):
+            parse_a_file(input_file, ciddict, output_file, upload_path)
+
+
+def parse_a_file(filename, ciddict, output_file, upload_path):
+    file_name, file_ext = os.path.splitext(filename)
+    del file_name
+    if file_ext == '.pdf':
+        print('📂 %s' % (filename))
+        subprocess.check_output(['pdf2txt.py', '-o', TEMP_FILE, filename])
+        _f = open(TEMP_FILE, 'r')
+        inputs = _f.readlines()
+        result = solution(inputs, ciddict)
+
+        if result:
+            if output_file or upload_path:
+                if output_file:
+                    write_to_file(result, output_file)
+                if upload_path:
+                    upload_to_path(result, upload_path)
+            else:
+                print(result)
+
+        _f.close()
+
+
+def write_to_file(result, output_file):
+    result_file = open(output_file, "w")
     result_file_delimeter = ';'
     result_file.write('biz_name' + result_file_delimeter + 'biz_code' +
                       result_file_delimeter + 'biz_register_date' +
@@ -30,44 +59,23 @@ def let_rock():
                       result_file_delimeter + 'biz_email' +
                       result_file_delimeter + 'biz_category_id' +
                       result_file_delimeter + 'biz_address' + '\n')
-
-    for filename in os.listdir(INPUT_PATH):
-        print('📂 %s' % (filename))
-        file_name, file_ext = os.path.splitext(filename)
-        del file_name
-        if file_ext == '.pdf':
-            subprocess.check_output(
-                ['pdf2txt.py', '-o', '../' + TEMP_FILE, filename])
-            _f = open('../' + TEMP_FILE, 'r')
-            inputs = _f.readlines()
-
-            result = solution(inputs, ciddict)
-            len_result = len(result)
-            if len_result > 0:
-                str_line = result_file_delimeter.join(map(str, result))
-                result_file.write(str_line + '\n')
-                # print(str_line)
-                if len(sys.argv) > 1:
-                    post_url = sys.argv[1]
-                    post_data = {
-                        "vbiz_address": result[6],
-                        "vbiz_category_id": result[5],
-                        "vbiz_code": result[1],
-                        "vbiz_email": result[4],
-                        "vbiz_name": result[0],
-                        "vbiz_phone": result[3],
-                        "vbiz_region_id": 0,
-                        "vbiz_register_date": result[2]
-                    }
-                    post_vbiz(post_url, post_data)
-
-    if len(sys.argv) > 2 and sys.argv[2] == 'ping':
-        ping_url = ('http://www.google.com/ping?sitemap='
-                    'https://vbiz.vnappmob.com/sitemap.xml')
-        response = requests.get(ping_url)
-        print(response.status_code)
-
+    str_line = result_file_delimeter.join(map(str, result))
+    result_file.write(str_line + '\n')
     result_file.close()
+
+
+def upload_to_path(result, upload_path):
+    post_data = {
+        "vbiz_address": result[6],
+        "vbiz_category_id": result[5],
+        "vbiz_code": result[1],
+        "vbiz_email": result[4],
+        "vbiz_name": result[0],
+        "vbiz_phone": result[3],
+        "vbiz_region_id": 0,
+        "vbiz_register_date": result[2]
+    }
+    post_vbiz(upload_path, post_data)
 
 
 def post_vbiz(post_url, post_data):
@@ -176,5 +184,5 @@ def validate_date(date_text):
     try:
         parser.parse(date_text)
         return True
-    except:  #pylint: disable=W
+    except:  # pylint: disable=W
         return False
