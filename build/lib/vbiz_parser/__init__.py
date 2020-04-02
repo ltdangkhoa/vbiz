@@ -72,7 +72,6 @@ def upload_to_path(result, upload_path):
         "vbiz_email": result[4],
         "vbiz_name": result[0],
         "vbiz_phone": result[3],
-        "vbiz_region_id": 0,
         "vbiz_register_date": result[2]
     }
     post_vbiz(upload_path, post_data)
